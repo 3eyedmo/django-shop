@@ -1,0 +1,79 @@
+
+
+.main-container {
+    min-height: 100vh;
+    background-color: #5c93e5;
+    background-image: linear-gradient(to right, rgba(43, 123, 39, 0.8), rgba(128, 0, 255, 0.5));
+    align-items: center;
+    font-family: vazir;
+}
+
+div.row {
+    height: 100vh;
+}
+
+/*header*/
+.header {
+    background-color: purple;
+    margin-top: -60px;
+    box-shadow: 0 10px 5px rgba(128, 0, 128, 0.34);
+}
+
+.header .title {
+    color: #fff3cd;
+    font-size: 25px;
+}
+
+.icon i {
+    color: purple;
+    border: #0a53be 1px solid;
+    background-color: #f1f3f5;
+    border-radius: 50%;
+    padding: 20px;
+}
+
+/* body */
+#email-form, #password-form {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    display: inline-block !important;
+    width: 80%;
+    font-size: 13px;
+}
+
+#email-form:focus, #password-form:focus {
+    box-shadow: none;
+    /*border-bottom: purple!important;*/
+}
+
+
+label {
+    font-size: 15px;
+}
+.input-group-text{
+    background-color: rgba(128, 0, 128, 0.65);
+}
+button{
+    background-color: purple!important;
+    padding-top: 0px!important;
+    padding-bottom: 5px!important;
+}
+button:hover{
+    box-shadow: 0 6px 10px rgba(109, 40, 109, 0.34);
+}
+/* footer */
+hr{
+    width: 60%;
+}
+footer{
+    font-size: 13px;
+}
+footer span{
+    text-shadow: rgba(53, 90, 163, 0.62) 1px 1px 1px;
+}
+footer a{
+    text-decoration: none;
+    color: purple;
+    text-shadow: purple 1px 1px 1px;
+}

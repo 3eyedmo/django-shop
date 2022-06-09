@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style_link %}
+    <link rel="stylesheet" href="{% static 'accounts/register/css/index.css' %}">
+{% endblock style_link %}
+
+{% block body %}
+    {% include 'accounts/register/body.html' %}
+{% endblock body %}
+
+{% block scripts %}
+    <script src="{% static 'accounts/register/js/index.js' %}"></script>
+{% endblock scripts %}

@@ -1,0 +1,110 @@
+.my-navbar {
+    background-color: blue;
+}
+
+.my-navbar .nav-container {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+
+
+.my-navbar .nav-container .nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-navbar .nav-container .nav ul li {
+    margin-left: 30px;
+    text-align: center;
+    width: 100px;
+}
+
+.my-navbar .nav-container .nav ul li a {
+    font-size: 14px;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 15px;
+    color: blue;
+    background-color: white;
+    display: inline-block;
+    width: 100%;
+}
+
+
+.my-navbar .nav-container .nav ul li a:hover {
+    background-color: rgb(141, 208, 250);
+    color: blue;
+}
+
+.my-navbar .nav-container span {
+    font-size: 30px;
+}
+.my-navbar .nav-container span a {
+    text-decoration: none;
+    color: white;
+}
+
+.my-navbar .nav-container span a:hover {
+    color: rgb(121, 158, 206);
+}
+
+
+.menu-icon {
+    display: none;
+}
+
+.menu-icon .ham, .menu-icon .times {
+    font-size: 30px;
+}
+
+@media (max-width: 800px) {
+    .menu-icon {
+        display: block;
+    }
+   
+
+    
+
+    .menu-icon .ham:hover, .menu-icon .times:hover {
+        cursor: pointer;
+    }
+
+
+
+    .hide-icon {
+        display: none !important;
+    }
+
+    .my-navbar .nav-container .nav ul{
+        /* display: flex; */
+        flex-direction: column;
+        position: fixed;
+        width: 70%;
+        top: 70px;
+        right: 0;
+        z-index: 100;
+        background-color: blue;
+    }
+
+    .my-navbar .nav-container .nav ul li {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .my-navbar .nav-container .nav ul li a {
+        border-radius: 0;
+        width: 100%;
+        background-color: inherit;
+        color: white;
+        padding: 20px;
+    }
+    .hide-menu {
+        display: none !important;
+    }
+
+}

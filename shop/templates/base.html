@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap/bootstrap-reboot.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/font_awesome/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/font.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+    
+    
+    {% block styles %}
+        <style>
+        </style>
+    {% endblock styles %}
+    {% block style_link %}{% endblock style_link %}
+    {% block title %}
+        <title>فروشگاه آنلاین</title>
+    {% endblock title %}
+    
+</head>
+
+<body>
+    {% block navbar %}
+
+    {% endblock navbar %}
+
+    {% block header %}
+    {% endblock header %}
+
+    {% block body %}
+    {% endblock body %}
+
+
+    {% block scripts %}
+        
+    {% endblock scripts %}
+    
+</body>
+</html>

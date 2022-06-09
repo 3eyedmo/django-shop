@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "vazir";
+    src: url("../fonts/vazir-font-v16.1.0/Vazir.woff") format("woff"),
+            url("../fonts/vazir-font-v16.1.0/Vazir.woff2") format("woff2"),
+            url("../fonts/vazir-font-v16.1.0/Vazir.eot") format("eot"),
+            url("../fonts/vazir-font-v16.1.0/Vazir.ttf") format("ttf"),
+            url("../fonts/vazir-font-v16.1.0/Vazir-Bold.woff") format("woff"),
+            url("../fonts/vazir-font-v16.1.0/Vazir-Bold.woff2") format("woff2"),
+            url("../fonts/vazir-font-v16.1.0/Vazir-Bold.eot") format("eot"),
+            url("../fonts/vazir-font-v16.1.0/Vazir-Bold.ttf") format("ttf");
+}
+
+@font-face {
+    font-family: 'byekan';
+    src: url("../fonts/byekan.ttf") format("ttf"),
+         url("../fonts/byekan.otf") format("otf");
+}

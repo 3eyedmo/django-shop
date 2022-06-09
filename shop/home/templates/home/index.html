@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style_link %}
+    <link rel="stylesheet" href="{% static 'home/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/header/header.css' %}">
+{% endblock style_link %}
+
+{% block navbar %}
+    {% include 'partials/navbar/navbar.html' %}
+{% endblock navbar %}
+
+{% block header %}
+    {% include 'partials/header/header.html' %}
+{% endblock header %}
+
+{% block body %}
+<button class="btn btn-success m-5" id="click-me">click me</button>
+{% endblock body %}
+
+{% block scripts %}
+    <script src="{% static 'assets/js/navbar.js' %}"></script>
+    <script>
+        {% comment %} const elm = document.getElementById('click-me')
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+              const cookies = document.cookie.split(";");
+              for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+                }
+              }
+            }
+            return cookieValue;
+          }
+        elm.addEventListener("click", myFunction);
+        function myFunction() {
+            fetch('http://127.0.0.1:8000/test/', {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": getCookie("csrftoken"),
+                },
+                body: JSON.stringify({name: "mohammad"})
+            })
+            .then(response => response.json())
+            .then(data => console.log(data));
+        } {% endcomment %}
+    </script>
+{% endblock scripts %}

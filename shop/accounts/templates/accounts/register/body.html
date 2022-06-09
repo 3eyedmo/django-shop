@@ -1,0 +1,70 @@
+<section class="container-fluid main-container">
+    <div class="row justify-content-around">
+        <div class="col-md-4 col-sm-10 text-center justify-content-around align-self-center border border-1 border-primary bg-light">
+            <div class="header w-75 d-inline-block rounded">
+                <div class="icon">
+                    <i class="fa fa-user fa-5x mt-2"></i>
+                </div>
+                <div class="title mt-2 mb-2">
+                    ثبت نام در سایت
+                </div>
+            </div>
+            <div class="body text-start mt-4">
+                <form action="{% url 'accounts:register' %}" id="register-form" method="Post">
+                    {% csrf_token %}
+                    <div class="form-group text-center">
+                        <label for="email-form" class="form-label">
+                            ایمیل
+                        </label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fa fa-envelope d-inline"></i></div>
+                            <input type="email" name="email" id="email-form" placeholder="email@example.com"
+                                   class="form-control form-control-sm bg-light" value="">
+                            <div class="password-hint text-start w-100 mt-2">
+                                <p class="alert alert-warning" id="email-empty"><i class="fa fa-exclamation-circle me-2 d-inline-block"></i>این فیلد نباید خالی باشد</p>
+                                <p class="alert alert-warning" id="email-invalid"><i class="fa fa-exclamation-circle me-2 d-inline-block"></i>ایمیل باید معتبر باشد</p>
+                                <p class="alert alert-warning d-none" id="email-redundant"><i class="fa fa-exclamation-circle me-2 d-inline-block"></i>ایمیل نباید تکراری باشد</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3 text-center">
+                        <label for="password-form1" class="form-label d-block">
+                            رمز عبور
+                        </label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fa fa-key d-inline-block"></i></div>
+                            <input type="password" name="password1" id="password-form1"
+                                       class="form-control form-control-sm bg-light text-end">
+                            <div class="password-hint text-start w-100 mt-2">
+                                <p class="alert alert-warning" id="pass1-empty"><i class="fa fa-exclamation-circle me-2 d-inline-block"></i>این فیلد نباید خالی باشد</p>
+                                <p class="alert alert-warning" id="pass1-8-25"><i class="fa fa-exclamation-circle me-2 d-inline-block"></i>پسوورد باید بین ۸ تا ۲۵ کاراکتر باشد</p>
+                                <p class="alert alert-warning" id="pass1-alpha"><i class="fa fa-exclamation-circle me-2 d-inline-block"></i>پسوورد باید شامل حروف کوچک و بزرگ و اهداد باشد</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3 text-center">
+                        <label for="password-form2" class="form-label d-block">
+                            تکرار رمز عبور
+                        </label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fa fa-key d-inline-block"></i></div>
+                            <input type="password" name="password2" id="password-form2"
+                                       class="form-control form-control-sm bg-light text-end">
+                            <div class="password-hint  text-start w-100 mt-2">
+                                <p class="alert alert-warning" id="pass2-equal"><i class="fa fa-exclamation-circle me-2 d-inline-block"></i>پسوورد ها باید یکی باشد</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-sm mt-4 text-light">ورود</button>
+                    </div>
+
+                </form>
+            </div>
+            <hr class="mx-auto">
+            <footer class="footer mt-4 mb-3">
+                <span>اگر ثبت نام کرده اید از <a href="{% url 'accounts:login' %}">اینجا</a> وارد شوید</span>
+            </footer>
+        </div>
+    </div>
+</section>

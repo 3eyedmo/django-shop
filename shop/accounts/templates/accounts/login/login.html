@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style_link %}
+    <link rel="stylesheet" href="{% static 'accounts/login/css/index.css' %}">
+{% endblock style_link %}
+
+{% block body %}
+    {% include 'accounts/login/body.html' %}
+{% endblock body %}
+
+{% block scripts %}
+    
+{% endblock scripts %}
