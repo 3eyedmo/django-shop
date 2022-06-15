@@ -38,7 +38,8 @@ class RegisterForm(forms.ModelForm):
     def save(self, commit=False):
         password = self.cleaned_data["password2"]
         email = self.cleaned_data["email"]
-        user = User(email = email, password=password, is_active=True)
+        user = User(email = email, is_active=True)
+        user.set_password(password)
         user.save()
         return user
 

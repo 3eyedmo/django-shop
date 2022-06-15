@@ -1,0 +1,38 @@
+{% load static %}
+<div class="container mt-5">
+    <div class="row mx-auto justify-content-center">
+        {% if object_list %}
+            {% for product in object_list %}
+                <div class="col-md-4 mt-4">
+                    <div class="card bg-dark text-light" style="width: 18rem; height: 35rem;">
+                        <a><img src="{{product.image.url}}" class="card-img-top" alt="" style="height: 18rem;"></a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{product.name}}</h5>
+                            <p class="card-text">{{product.discription|truncatechars:50}}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                قیمت : {% if product.price %}
+                                <span class="float-end text-success">{{product.price}}</span>
+                                        {% else %}
+                                        <span class="float-end text-danger">نامعلوم</span>
+                                        {% endif %}
+                            </li>
+                            <li class="list-group-item">
+                                تعداد : {% if product.quentity %}
+                                <span class="float-end text-success">{{product.quentity}}</span>
+                                        {% else %}
+                                        <span class="float-end text-danger">نامعلوم</span>
+                                        {% endif %}
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="{% url 'products:product_detail' product.id%}" class="card-link text-decoration-none text-light">نمایش محصول</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>  
+</div>

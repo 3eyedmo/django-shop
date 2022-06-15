@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style_link %}
+    <link rel="stylesheet" href="{% static 'home/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
+{% endblock style_link %}
+
+{% block navbar %}
+    {% include 'partials/navbar/navbar.html' %}
+{% endblock navbar %}
+
+
+{% block body %}
+    {% include 'products/detail/body.html' %}
+{% endblock body %}
+
+{% block scripts %}
+<script>
+
+
+
+$(document).on('click', '#add-cart-button', function (e) {
+    e.preventDefault();
+    var prodid = $(this).data('index');
+    var quentity = $('#item-quentity').find(":selected").text()
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart:add_cart" %}',
+        data: {
+            product: $(this).data('index'),
+            csrfmiddlewaretoken: "{{csrf_token}}",
+            quentity: quentity
+        },
+        
+        success: function (json) {
+            console.log(json)
+        },
+        error: function (xhr, errmsg, err) {}
+    });
+})
+
+</script>
+{% endblock scripts %}

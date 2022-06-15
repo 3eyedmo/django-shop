@@ -1,0 +1,41 @@
+<div class="container mt-5">
+    <form class="row mx-auto justify-content-center" target="#" method="GET">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="category">
+                    طبقه بندی
+                </label>
+                <select name="category" id="category">
+                    <option value=""></option>
+                    {% for cat in cats %}
+                        <option value="{{cat.id}}" >{{cat.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="price">
+                    محدوده قیمت (تومن)
+                </label>
+                <div class="">
+                    <input type="number" name="price_to" placeholder="تا">
+                    <input type="number" name="price_from" placeholder="از">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="key">
+                    کلید واژه
+                </label>
+                <input type="search" name="search">
+            </div>
+        </div>
+        <div class="col-md-4 mt-md-3">
+            <div class="submit__buttun">
+                <button type="submit btn btn-primary">جست جو</button>
+            </div>
+        </div>
+    </form>
+</div>

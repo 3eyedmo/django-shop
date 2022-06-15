@@ -35,23 +35,76 @@
     width: 100%;
 }
 
-
 .my-navbar .nav-container .nav ul li a:hover {
     background-color: rgb(141, 208, 250);
     color: blue;
 }
 
-.my-navbar .nav-container span {
-    font-size: 30px;
+.my-navbar {
+    position: relative;
+}
+
+.my-navbar .account-container {
+    position: relative;
+}
+
+.my-navbar .account-container .email-bar {
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 4px;
+    color: blue;
+    background-color: white;
+    cursor: pointer;
+}
+
+.my-navbar .account-container .account-nav {
+    position:absolute;
+    left: 10px;
+    top: 100%;
+    background-color: blue;
+    z-index: 100;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: none;
+}
+
+.my-navbar .account-container:hover .account-nav {
+    display: block;
+}
+
+.my-navbar .account-nav ul li {
+    list-style: none;
+    margin-top: 10px;
+    padding: 15px;
+}
+
+.my-navbar .account-nav ul li a {
+    font-size: 15px;
+    text-decoration: none;
+    color: white;
+    
+}
+
+.my-navbar .account-nav ul li:hover a {
+    font-size: 15px;
+    text-decoration: none;
+    color: white;
+    
+}
+
+/* .my-navbar .nav-container span {
+    background-color: black;
+    font-size: 15px;
 }
 .my-navbar .nav-container span a {
     text-decoration: none;
     color: white;
+    
 }
 
 .my-navbar .nav-container span a:hover {
     color: rgb(121, 158, 206);
-}
+} */
 
 
 .menu-icon {

@@ -1,0 +1,24 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center mt-5">
+        
+        <li class="page-item {% if not page_obj.has_previous %}disabled{%endif%}">
+            <a class="page-link" 
+                href="{% url 'home:home' %}{{params}}{% if page_obj.has_previous %}page={{ page_obj.previous_page_number }}{%endif%}" 
+                        aria-disabled="true">قبلی</a>
+        </li>
+        <li class="page-item"><span class="page-link">{{page_obj.number}}-{{paginator.num_pages}}</span></li>
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" 
+                    href="{% url 'home:home' %}{{params}}page={{ page_obj.next_page_number }}">بعدی</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">بعدی</a>
+            </li>
+        {% endif %}
+        
+    </ul>
+</nav>
+
+<br><br><br><br>

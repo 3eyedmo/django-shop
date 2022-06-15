@@ -1,8 +1,8 @@
-from multiprocessing import context
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout, authenticate
 from django.views import View
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from accounts.forms import RegisterForm, LoginForm
 
@@ -55,3 +55,13 @@ class RegisterView(View):
         }
         print(form.errors)
         return render(request, 'accounts/register/register.html', context=context)
+
+
+class LogoutView(LoginRequiredMixin, View):
+    http_method_names = [
+        "get"
+    ]
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect("home:home")

@@ -17,7 +17,10 @@
 {% endblock header %}
 
 {% block body %}
-<button class="btn btn-success m-5" id="click-me">click me</button>
+<!-- <button class="btn btn-success m-5" id="click-me">click me</button> -->
+{% include 'home/search.html' %}
+{% include 'home/body.html' %}
+{% include 'home/paginate.html' %}
 {% endblock body %}
 
 {% block scripts %}

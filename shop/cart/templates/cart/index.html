@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style_link %}
+    <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
+
+    <style>
+
+        .edit-button, .remove-button, .save-changes, .cancel-save {
+            cursor: pointer;
+        }
+
+        .quentity-input {
+            border: 1px solid blue;
+            border-radius: 5px;
+            width: 40px;
+        }
+
+        .quentity-input:focus {
+            border: 1px;
+            outline: none;
+        }
+
+       
+    </style>
+    
+{% endblock style_link %}
+
+{% block navbar %}
+    {% include 'partials/navbar/navbar.html' %}
+{% endblock navbar %}
+
+
+{% block body %}
+    {% include 'cart/body.html' %}
+{% endblock body %}
+
+{% block scripts %}
+
+<script>
+
+
+const warningMessage = (msg) => {
+    elm = 
+    `
+        <div class="container" id="cart__warning__msg">
+            <p class="alert alert-warning">
+                ${msg}
+            </p>
+        </div>
+    `
+    return elm
+}
+
+const successMessage = (msg) => {
+    elm = 
+    `
+        <div class="container" id="cart__success__msg">
+            <p class="alert alert-success">
+                ${msg}
+            </p>
+        </div>
+    `
+    return elm
+}
+
+const saveAndCancel = () => {
+    let elm = `
+            <div class="edit-mode">
+                <span class="btn-sm btn-success save-changes">
+                    ذخیره
+                </span>
+                <span class="btn-sm btn-primary ms-2 cancel-save">
+                    انصراف
+                </span>
+            </div>
+            `
+    return elm
+}
+
+
+
+$(document).on('click', '.cancel-save', function() {
+    const parentElm = $(this).parent()
+    const editIcon = parentElm.siblings(".edit-button")
+    parentElm.hide()
+    editIcon.show()
+
+    // getting back the quentity value:
+    let quentityElm = parentElm.parent().siblings(".quentity")
+    quentitySpan = quentityElm.children(".quentity__value")
+    quentitySpan.show()
+    let quentityInputTag = quentityElm.children(".quentity-input")
+    quentityInputTag.remove()
+
+
+});
+
+const toPersian = (number) => {
+    let id= ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+    $.each(id, (index, value)=>{
+        number = number.replace(index, value)
+    })
+    return number
+}
+
+
+
+
+$(document).on('click', '.save-changes', function() {
+    let parentElm = $(this).parent()
+    let editIcon = parentElm.siblings(".edit-button")
+    let quentityElm = parentElm.parent().siblings(".quentity")
+    quentitySpan = quentityElm.children(".quentity__value")
+    
+    let quentityInputTag = quentityElm.children(".quentity-input")
+    quentity = quentityInputTag.val()
+    id = $(this).parents("tr").data("index")
+    
+
+    let url = '{% url "cart:retrieve_update_delete" 12 %}'
+    let reversedUrl = url.replace("12", id)
+
+    // ajax request
+    if ($.isNumeric(quentity) && (quentity < 9)) {
+        $.ajax({
+            type: 'PATCH',
+            url: reversedUrl,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}")
+            },
+            data: {
+                quentity: quentity
+            },
+            success: function (json) {
+                parentElm.hide()
+                editIcon.show()
+                quentityInputTag.remove()
+                quentitySpan.show()
+                $(`#quentity-value-${id}`).html(toPersian(json.quentity.toString()))
+            },
+            error: function (xhr, errmsg, err) {
+                parentElm.hide()
+                editIcon.show()
+                quentityInputTag.remove()
+                quentitySpan.show()
+                
+            }
+        });
+    } else {
+        let lastWarning = $("#cart__warning__msg")
+        if (lastWarning) {
+            lastWarning.remove()
+        } 
+        let elm = warningMessage("تعداد را درست وارد کنید")
+        cartContainer = $("#cart-container").append(elm)
+        $("#cart__warning__msg").fadeOut(3000);
+    }
+
+
+});
+
+$(".edit-button").click(function(){
+    editMode = true;
+    const parent_row = $(this).parents('tr')
+    let id = parent_row.data("index")
+    $(this).hide();
+    let parrentElm = $(this).parent()
+    parrentElm.append(saveAndCancel())
+    const input = 
+    `
+        <input type="text" name="quentity" class="quentity-input" id="quentity-input-${id}">
+    `
+    
+    let quentityElm = parent_row.children(".quentity")
+    let lastInput = $(`#quentity-input-${id}`)
+    if (lastInput) {
+        lastInput.remove()
+    }
+    quentityElm.children(".quentity__value").hide()
+    quentityElm.append(input)
+});
+
+
+
+
+let deletedItem = null;
+
+removeElements = document.getElementsByClassName("remove-button")
+
+
+Array.from(removeElements).forEach((element) => {
+    element.addEventListener('click', event => {
+        let parent_row = element.closest("tr")
+        id = parent_row.dataset.index
+        deletedItem = id
+    })
+})
+
+
+
+
+$("#delete-item-final").click((e) => {
+    e.preventDefault();
+    let itemId = deletedItem
+
+    if (!itemId) {
+        return
+    }
+
+    let url = '{% url "cart:retrieve_update_delete" 12 %}'
+    let reversedUrl = url.replace("12", itemId)
+    console.log(reversedUrl)
+    $.ajax({
+        type: 'DELETE',
+        url: reversedUrl,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}")
+        },
+        success: function (json) {
+            let lastSuccess = $("#cart__success__msg")
+            if (lastSuccess) {
+                lastSuccess.remove()
+            }
+            let elm = successMessage("آیتم مورد نظر با موفقیت حذف شد")
+            cartContainer = $("#cart-container").append(elm)
+            $("#cart__success__msg").fadeOut(5000);
+            cartElm = document.getElementById(`cart-record-${itemId}`)
+            cartElm.remove();
+            deletedItem = null;
+            
+
+        },
+        error: function (xhr, errmsg, err) {}
+    });
+})
+
+</script>
+
+{% endblock scripts %}

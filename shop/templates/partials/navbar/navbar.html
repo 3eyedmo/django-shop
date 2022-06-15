@@ -5,13 +5,28 @@
             <i class="fas fa-times times hide-icon" id="times-id"></i>
         </div>
         <nav class="nav hide-menu" id="navbar-class">
-            <ul>
-                <li><a href="http://www.google.com" class="active">خانه</a></li>
+            <ul class="">
+                <li><a href="{% url 'home:home' %}" class="active">خانه</a></li>
                 <li><a href="#">محصولات</a></li>
                 <li><a href="#">خدمات</a></li>
-                <li><a href="#">تماس با ما</a></li>
             </ul>
         </nav>
-        <span><a href="#">فروشگاه اینترنتی</a></span>
+        <div class="account-container">
+            {% if user.is_authenticated %}
+                <div class="email-bar">
+                    armin403000@yahoo.com
+                </div>
+                <div class="account-nav">
+                    <ul class="">
+                        <li><a href="{% url 'accounts:logout' %}">خروج از سیستم</a></li>
+                        <li><a href="{% url 'cart:cartlist' %}">سبد خرید</a></li>
+                        <li><a href="#">پروفایل</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <a class="text-decoration-none btn-sm btn-light" href="{% url 'accounts:login' %}">ورود</a>
+                <a class="text-decoration-none btn-sm btn-light" href="{% url 'accounts:register' %}">ثبت نام</a>
+            {% endif %}
+        </div>
     </div>
 </div>
