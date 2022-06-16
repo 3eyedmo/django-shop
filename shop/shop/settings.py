@@ -125,26 +125,24 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'APP': {
-            'client_id': '123',
-            'secret': '456',
-            'key': ''
-        }
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         # For each OAuth based provider, either add a ``SocialApp``
+#         # (``socialaccount`` app) containing the required client
+#         # credentials, or list them here:
+#         'APP': {
+#             'client_id': '123',
+#             'secret': '456',
+#             'key': ''
+#         }
+#     }
+# }
 LOGIN_REDIRECT_URL = "home:home"
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
-GOOGLE_CLIENT_ID = "619486332873-o6alfmp7cp6svil37kgck6ladcj7qujl.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "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"
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
