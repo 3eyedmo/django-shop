@@ -1,4 +1,3 @@
-from django.http import JsonResponse
 from django.views import generic
 from django.db.models import F
 from django.utils.translation import gettext_lazy as _
@@ -8,17 +7,29 @@ from rest_framework import generics
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.response import Response
 
-from cart.models import Order, OrderStatus, CartItem
+from cart.models import CartItem
 from cart.serializers import CartItemSerializer
+from orders.models import Order, PendingOrder
+from orders.models_status import OrderStatus
+    
 
     
 class ListCartItems(LoginRequiredMixin, generic.ListView):
     template_name = "cart/index.html"
+    allow_empty: bool = True
 
     def get_queryset(self):
         user = self.request.user
         qs = CartItem.objects.for_user(user=user).select_related('product')
         return qs
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        user = self.request.user
+        if PendingOrder.objects.filter(user=user).exists():
+            order = PendingOrder.objects.filter(user=user).order_by("-created").first()
+            data["total_price"] = order.total_price()
+        return data
 
 
 class IsOwner(BasePermission):
@@ -39,10 +50,10 @@ class CreateCartItem(generics.CreateAPIView):
         return data
 
     def get_order(self):
-        order, _ = Order.objects.get_or_create({
-            "user":self.request.user,
-            "status":OrderStatus.Pending
-        })
+        order, _ = Order.objects.get_or_create(
+            user = self.request.user,
+            status = OrderStatus.Pending
+        )
         return order
 
 
@@ -72,12 +83,3 @@ class RetrieveUpdateDestroyCartItem(
         instance = self.get_object()
         instance.delete()
         return Response(status=204)
-
-
-
-
-
-
-
-
-

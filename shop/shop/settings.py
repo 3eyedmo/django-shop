@@ -12,23 +12,21 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+
+
 SECRET_KEY = 'django-insecure-#7dh&wyau_#t(p8e1*!a!in@l$v_&bzof4cv_6%y%6a=&jy754'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -44,6 +42,8 @@ INSTALLED_APPS = [
     'home',
     'products',
     'cart',
+    'orders',
+    'pay',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -85,8 +85,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'shop.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -96,8 +94,6 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -124,27 +120,15 @@ AUTHENTICATION_BACKENDS = [
     
 ]
 
-# Provider specific settings
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         # For each OAuth based provider, either add a ``SocialApp``
-#         # (``socialaccount`` app) containing the required client
-#         # credentials, or list them here:
-#         'APP': {
-#             'client_id': '123',
-#             'secret': '456',
-#             'key': ''
-#         }
-#     }
-# }
+
 LOGIN_REDIRECT_URL = "home:home"
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
+
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -155,8 +139,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR.parent, 'static/') 
@@ -168,8 +150,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR.parent, 'media/') 
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "accounts.Customer"
@@ -183,3 +164,11 @@ REST_FRAMEWORK = {
 
 
 SITE_ID = 2
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "s.m.hoseyni40304030@gmail.com"
+EMAIL_HOST_PASSWORD = "fpkh lsfj jsxi yjpi"

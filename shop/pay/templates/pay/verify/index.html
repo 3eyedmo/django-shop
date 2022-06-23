@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style_link %}
+    <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
+
+    
+{% endblock style_link %}
+
+{% block navbar %}
+    {% include 'partials/navbar/navbar.html' %}
+{% endblock navbar %}
+
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <p class="alert alert-warning">
+                این صفحه و صفحه بعد (اگر روی بله کلیک کنید) شبیه سازی فرایند خرید یک محصول است.(چون درگاه پرداخت نداریم ازین استفاده کردیم)
+            </p>
+            <p class="alert alert-info">
+                آیا از خرید آیتم ها به قیمت <span>{{total_price}}</span> تومان مطمئنید؟
+            </p>
+        </div>
+        <div class="row justify-content-around">
+            <form action="{% url 'pay:complete_pay' %}" method="POST" class="d-inline w-25">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success w-100" href="{% url 'cart:cartlist' %}">بله</button>
+            </form>
+            
+            <a class="btn btn-danger w-25" href="{% url 'cart:cartlist' %}">خیر</a>
+        </div>
+    </div>
+{% endblock body %}

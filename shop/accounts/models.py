@@ -83,13 +83,3 @@ class Customer(AbstractBaseUser):
     def is_superuser(self):
         return self.is_admin
 
-
-
-
-# def create_profile(sender, instance, created, **kwargs):
-#     if created:
-#         profile = Profile(user = instance)
-#         profile.save()
-
-
-# post_save.connect(create_profile, sender=MyUser)

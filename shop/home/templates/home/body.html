@@ -1,4 +1,5 @@
 {% load static %}
+{% load persian %}
 <div class="container mt-5">
     <div class="row mx-auto justify-content-center">
         {% if object_list %}
@@ -13,14 +14,14 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 قیمت : {% if product.price %}
-                                <span class="float-end text-success">{{product.price}}</span>
+                                <span class="float-end text-success">{{product.price | get_persian_number}}</span>
                                         {% else %}
                                         <span class="float-end text-danger">نامعلوم</span>
                                         {% endif %}
                             </li>
                             <li class="list-group-item">
                                 تعداد : {% if product.quentity %}
-                                <span class="float-end text-success">{{product.quentity}}</span>
+                                <span class="float-end text-success">{{product.quentity | get_persian_number}}</span>
                                         {% else %}
                                         <span class="float-end text-danger">نامعلوم</span>
                                         {% endif %}

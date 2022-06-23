@@ -1,5 +1,7 @@
 import string
 
+from django.conf import settings
+from django.core.mail import send_mail
 
 class CheckPassword:
     MIN_PASS_LENGTH = 8
@@ -46,3 +48,11 @@ class CheckPassword:
             self.error_message = "password must have at least one upper case"
             return False
         return True
+
+
+
+def send_email(email, link, subject):
+    message = f"you need to click following link {link}"
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+    send_mail(subject, message, email_from, recipient_list)

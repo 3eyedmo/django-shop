@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+.email-sent-text {
+    line-height: 30px;
+}
+</style>
+
+{% endblock styles %}
+
+
+
+{% block body %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-5">
+            <p class="alert alert-info email-sent-text">
+                ایمیل حاوی لینک فعالسازی با موفقیت برای شما ارسال شد. از <a class="text-decoration-none text-muted text-dark" href="{% url 'accounts:login' %}">اینجا</a> به فرم ورود بروید.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

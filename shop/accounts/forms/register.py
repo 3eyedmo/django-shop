@@ -34,7 +34,7 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError("email exists")
         return email
     
-    
+
     def save(self, commit=False):
         password = self.cleaned_data["password2"]
         email = self.cleaned_data["email"]
@@ -44,7 +44,3 @@ class RegisterForm(forms.ModelForm):
         return user
 
 
-    
-    
-    
-    

@@ -10,10 +10,7 @@ class OrderDefalutValue:
     requires_context = True
 
     def __call__(self, serializer_field):
-        value = serializer_field.context.get("order")
-        print("This is order from validator : ", value)
         return serializer_field.context.get("order")
-
 
 
 class CartItemSerializer(serializers.ModelSerializer):
@@ -58,7 +55,7 @@ class CartItemSerializer(serializers.ModelSerializer):
         if CartItem.objects.for_user(user).filter(product=product).exists():
             cart = CartItem.objects.for_user(user).get(product=product)
             sum_of_quentities = cart.quentity + quentity
-            if sum_of_quentities > 8:
+            if sum_of_quentities > 10:
                 raise serializers.ValidationError("total number bigger than 10")
             cart.quentity = F('quentity') + quentity
             cart.save()

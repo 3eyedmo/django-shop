@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load persian %}
+
+
+{% block style_link %}
+    <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
+{% endblock style_link %}
+
+{% block navbar %}
+    {% include 'partials/navbar/navbar.html' %}
+{% endblock navbar %}
+
+
+{% block body %}
+{% if object_list %}
+{% for pay in  object_list%}
+<div class="container mt-5">
+  <div class="card border-success mb-3">
+    <div class="card-header bg-primary text-light">قیمت کل : {{pay.total_price | get_persian_number}}</div>
+    <div class="card-body text-success">
+      <table class="table table-hover">
+        <thead>
+          <tr class="text-primary">
+            <th scope="col">#</th>
+            <th scope="col">محصول</th>
+            <th scope="col">تعداد محصول</th>
+            <th scope="col">قیمت واحد</th>
+            <th scope="col">قیمت کل</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in  pay.cart_list%}
+          <tr>
+            <th scope="row">{{forloop.counter | get_persian_number}}</th>
+            <td>{{item.product.name}}</td>
+            <td>{{item.quentity | get_persian_number}}</td>
+            <td>{{item.product.price | get_persian_number}}</td>
+            <td>{{item.total_price | get_persian_number}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+    </div>
+    <div class="card-footer bg-primary text-light">{{pay.created}}</div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock body %}

@@ -1,3 +1,4 @@
+{% load persian %}
 <div class="d-flex mt-5 container">
     <div class="product__image me-4 ">
         <img src="{{object.image.url}}" alt="This is my image" style="max-width: 300px; max-height:300px;">
@@ -5,8 +6,8 @@
     <div class="content">
         <h3 class="mb-3">نام محصول : {{object.name}}</h3>
         <p class="mb-3">توضیحات محصول : {{object.discription}}</p>
-        <p class="mb-3">تعداد محصول : {{object.quentity}}</p>
-        <p class="mb-3">قیمت محصول : {{object.price}}</p>
+        <p class="mb-3">تعداد محصول : {{object.quentity | get_persian_number}}</p>
+        <p class="mb-3">قیمت محصول : {{object.price | get_persian_number}}</p>
         {% if user.is_authenticated %}
             <button class="btn-sm btn-success" id="add-cart-button" data-index="{{object.id}}">افزودن به سبد خرید</button>
             <select class="float-end w-50" id="item-quentity">
