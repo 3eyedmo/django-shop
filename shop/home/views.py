@@ -11,6 +11,9 @@ def home(request):
 
 
 class ProductFilterset(django_filters.FilterSet):
+    """
+    This module filters a queryset based on category, price(from, to) and a key word.
+    """
     category__id = django_filters.NumberFilter(lookup_expr='iexact')
     category__name = django_filters.CharFilter(lookup_expr='iexact')
     price_to = django_filters.NumberFilter(field_name='price', lookup_expr='lt')
@@ -33,6 +36,9 @@ class ProductFilterset(django_filters.FilterSet):
     
 
 class HomeView(generic.ListView):
+    """
+    This view gives all products based on a filter.
+    """
     model = Product
     template_name: str = "home/index.html"
     paginate_by: int = 2
@@ -64,10 +70,3 @@ class HomeView(generic.ListView):
             param_value = params_query_dict.getlist(param)[0]
             params_string += f"{param}={param_value}&"
         return params_string
-
-
-def test(request):
-    print(request.user)
-    print(request.POST)
-    
-    return JsonResponse(data={"name":"mohammad"})

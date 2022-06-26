@@ -1,16 +1,35 @@
-import re
+from functools import wraps
+
+
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
 from django.views import View
 from django.views import generic
-from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
-from requests import session
+from django.utils.encoding import smart_bytes
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.urls import reverse
 
 from accounts.forms import RegisterForm, LoginForm
+from accounts.forms import PasswordForgetForm, PasswordChangeForm
+from accounts.utils import send_email
+
+
+
+User = get_user_model()
+
 
 class LoginView(View):
+    """
+    This View get the login page and logs in a real user
+    """
+
     http_method_names = [
         'post',
         'get'
@@ -40,6 +59,12 @@ class LoginView(View):
 
 
 class RegisterView(View):
+    """
+    This View do registration of users :
+        - "get" method gives the registration page.
+        - "post" method does the backend registration.
+    """
+
     http_method_names = [
         'post',
         'get'
@@ -62,6 +87,9 @@ class RegisterView(View):
 
 
 class LogoutView(LoginRequiredMixin, View):
+    """
+    This View logs out a user via a "get" request.
+    """
     http_method_names = [
         "get"
     ]
@@ -73,21 +101,19 @@ class LogoutView(LoginRequiredMixin, View):
 
 
 class PasswordGetEmailView(generic.TemplateView):
+    """
+    This View gives a template with an email field. in other view this email
+    gonna be sent an email. 
+    """
     template_name: str = "accounts/forget_password/get_email/index.html"
 
 
-from accounts.utils import send_email
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.encoding import smart_bytes
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.auth import get_user_model
-from django.urls import reverse
-from functools import wraps
-User = get_user_model()
+
 
 def get_user_information(func):
+    """
+    This decorator is going to make an authorization and also makes dependency injection.
+    """
 
     @wraps
     def dec(self, request):
@@ -105,10 +131,15 @@ def get_user_information(func):
         })
         relative_link = current_site + url
         return func(self, request, email, relative_link, send_email)
+
     return dec
 
 
 class PasswordSentEmailView(View):
+    """
+    This View is gonna check user email and sent them an email if email is valid.
+    """
+
     template_name: str = "accounts/forget_password/email_sent/index.html"
 
     @get_user_information
@@ -119,9 +150,10 @@ class PasswordSentEmailView(View):
         return render(request, self.template_name)
 
 
-
-
 def token_validator(func):
+    """
+    This decorator is going to decode token and uuid and get the user to view.
+    """
 
     @wraps
     def dec(self, request, *args, **kwargs):
@@ -134,12 +166,15 @@ def token_validator(func):
         if request.method == "GET":
             return func(self, request, token, uidb64)
         return func(self, request, user, token, uidb64)
-    
     return dec
 
-from accounts.forms import PasswordForgetForm, PasswordChangeForm
+
 
 class PasswordVerify(View):
+    """
+    This View is going to get password verification form page and validate input passwords.
+    """
+
     template_name = "accounts/forget_password/verify_password/index.html"
     form = PasswordForgetForm
     http_method_names = [
@@ -164,12 +199,17 @@ class PasswordVerify(View):
 
         context = {
             "token": token,
-            "uidb64": uidb64
+            "uidb64": uidb64,
+            "error": True
         }
         return render(request, self.template_name, context=context)
 
 
 class ChangePasswordView(LoginRequiredMixin, View):
+    """
+    This View change user password.
+    """
+
     teamplate_name = "accounts/change_password/index.html"
     form = PasswordChangeForm
 
@@ -180,10 +220,8 @@ class ChangePasswordView(LoginRequiredMixin, View):
             user.set_password(form.cleaned_data.get("password2"))
             user.save()
             return redirect("home:home")
-        
-        return render(request, self.teamplate_name)
+
+        return render(request, self.teamplate_name, context={"error":True})
 
     def get(self, request):
         return render(request, self.teamplate_name)
-
-

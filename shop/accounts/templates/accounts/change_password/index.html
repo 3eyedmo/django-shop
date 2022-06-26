@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
-{% block body %}
+{% load static %}
+{% block style_link %}
+    <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
+{% endblock style_link %}
 
+{% block navbar %}
+    {% include 'partials/navbar/navbar.html' %}
+{% endblock navbar %}
+
+{% block body %}
 <div class="container mt-5">
+    <h1 class="display-6 mb-4">فرم تغییر پسوورد :</h1>
     <div class="row">
         <div class="col-md-5">
-            <form action="{% url 'accounts:password_verify' token=token uidb64=uidb64 %}" method="POST">
+            <form action="{% url 'accounts:change_password'%}" method="POST">
                 {% csrf_token %}
                 <div class="form-group mb-4">
                     <label for="old_password" class="mb-3">
@@ -28,6 +37,22 @@
             </form>
         </div>
     </div>
+    <div class="mt-4 ps-4 py-3 rounded bg-primary text-light">
+        <div class="">
+            <p>پسوورد باید شامل حداقل ۸ و حد اکثر ۲۵ کاراکتر باشد.</p>
+            <p>پسوورد باید شامل حداقل یک حرف کوچک و یک حرف بزرگ و اعداد باشد.</p>
+        </div>
+    </div>
+    {% if error %}
+       <div class="mt-4 ps-4 py-3">
+           <p class="alert alert-danger">پسوورد وارد شده صحیح نیست.</p>
+       </div>
+    {% endif %}
+    
 </div>
 
 {% endblock body %}
+
+{% block scripts %}
+    <script src="{% static 'assets/js/navbar.js' %}"></script>
+{% endblock scripts %}

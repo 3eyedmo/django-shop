@@ -15,6 +15,9 @@ from orders.models_status import OrderStatus
 
     
 class ListCartItems(LoginRequiredMixin, generic.ListView):
+    """
+    This List View gives the list of cart items.
+    """
     template_name = "cart/index.html"
     allow_empty: bool = True
 
@@ -33,11 +36,17 @@ class ListCartItems(LoginRequiredMixin, generic.ListView):
 
 
 class IsOwner(BasePermission):
+    """
+    This Permission checks if the current user is the order owner.
+    """
     def has_object_permission(self, request, view, obj):
         return request.user == obj.order.user
 
 
 class CreateCartItem(generics.CreateAPIView):
+    """
+    This View creates Cart item.
+    """
     permission_classes = (IsAuthenticated, )
     serializer_class = CartItemSerializer
 
@@ -61,6 +70,9 @@ class CreateCartItem(generics.CreateAPIView):
 class RetrieveUpdateDestroyCartItem(
     generics.GenericAPIView
 ):
+    """
+    This View Retrieve, Update, Destroy a cart item.
+    """
     queryset = CartItem.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
     serializer_class = CartItemSerializer
