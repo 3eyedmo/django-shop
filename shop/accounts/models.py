@@ -56,8 +56,8 @@ class Customer(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    objects = MyUserManager()
     USERNAME_FIELD = 'email'
+    objects = MyUserManager()
 
     def __str__(self):
         return self.email
