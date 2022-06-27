@@ -14,7 +14,6 @@ class MyUserManager(BaseUserManager):
         """
         if not email:
             raise ValueError('Users must have an email address')
-
         user = self.model(
             email=self.normalize_email(email)
         )
@@ -29,7 +28,6 @@ class MyUserManager(BaseUserManager):
             email=email,
             password=password
         )
-
         user.save(using=self._db)
 
     def create_superuser(self, email, password=None):
@@ -53,9 +51,18 @@ class Customer(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(
+        verbose_name="active",
+        default=True
+    )
+    is_staff = models.BooleanField(
+        verbose_name="staff",
+        default=False
+    )
+    is_admin = models.BooleanField(
+        verbose_name="admin",
+        default=False
+    )
     USERNAME_FIELD = 'email'
     objects = MyUserManager()
 
@@ -69,9 +76,7 @@ class Customer(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
-
 
     def is_staff_user(self):
         "Is the user a member of staff?"

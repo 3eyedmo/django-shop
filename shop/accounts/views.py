@@ -46,7 +46,6 @@ class LoginView(View):
                 password = form.cleaned_data.get("password")
             )
             if user is not None:
-                print(user)
                 login(request, user)
                 return redirect("home:home")
             messages.warning(request, "email or password is wrong")
@@ -82,7 +81,6 @@ class RegisterView(View):
         context = {
             "form": form
         }
-        print(form.errors)
         return render(request, 'accounts/register/register.html', context=context)
 
 
@@ -115,7 +113,6 @@ def get_user_information(func):
     This decorator is going to make an authorization and also makes dependency injection.
     """
 
-    @wraps
     def dec(self, request):
         email = request.POST.get("email")
         try:
@@ -135,11 +132,11 @@ def get_user_information(func):
     return dec
 
 
+
 class PasswordSentEmailView(View):
     """
     This View is gonna check user email and sent them an email if email is valid.
     """
-
     template_name: str = "accounts/forget_password/email_sent/index.html"
 
     @get_user_information
@@ -150,12 +147,11 @@ class PasswordSentEmailView(View):
         return render(request, self.template_name)
 
 
+
 def token_validator(func):
     """
     This decorator is going to decode token and uuid and get the user to view.
     """
-
-    @wraps
     def dec(self, request, *args, **kwargs):
         token = kwargs.get("token")
         uidb64 = kwargs.get("uidb64")
