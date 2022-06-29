@@ -128,3 +128,11 @@ class ForgetPasswordFormTest(TestCase):
         }
         form = PasswordForgetForm(data=data)
         self.assertTrue(form.is_valid())
+
+    def test_invalid_data(self):
+        data = {
+            "password1": "13546msandj",
+            "password2": "13546msandj"
+        }
+        form = PasswordForgetForm(data=data)
+        self.assertFalse(form.is_valid())

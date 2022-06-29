@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
-
 {% load static %}
 {% block style_link %}
     <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
 {% endblock style_link %}
+
+{% block title %}
+<title>
+    فرم فراموشی پسوورد
+</title>
+{% endblock title %}
 
 {% block navbar %}
     {% include 'partials/navbar/navbar.html' %}

@@ -1,41 +1,30 @@
 <div class="container mt-5">
     <form class="row mx-auto justify-content-center" target="#" method="GET">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="category">
-                    طبقه بندی
-                </label>
-                <select name="category" id="category">
-                    <option value=""></option>
-                    {% for cat in cats %}
-                        <option value="{{cat.id}}" >{{cat.name}}</option>
-                    {% endfor %}
-                </select>
+        <div class="form-group mt-4">
+            <select name="category" id="category" class="form-select">
+                <option selected value="">طبقه بندی محصولات را انتخاب کنید.</option>
+                {% for cat in cats %}
+                    <option value="{{cat.id}}" >{{cat.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group mt-5">
+            <label for="price" class="mb-2">
+                محدوده قیمت (تومن)
+            </label>
+            <div class="">
+                <input class="form-control mb-2 text-start" type="number" name="price_from" placeholder="از">
+                <input class="form-control text-start" type="number" name="price_to" placeholder="تا">
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="price">
-                    محدوده قیمت (تومن)
-                </label>
-                <div class="">
-                    <input type="number" name="price_to" placeholder="تا">
-                    <input type="number" name="price_from" placeholder="از">
-                </div>
-            </div>
+        <div class="form-group mt-5">
+            <label for="key" class="mb-3">
+                کلید واژه
+            </label>
+            <input type="search" name="search" class="form-control">
         </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label for="key">
-                    کلید واژه
-                </label>
-                <input type="search" name="search">
-            </div>
-        </div>
-        <div class="col-md-4 mt-md-3">
-            <div class="submit__buttun">
-                <button type="submit btn btn-primary">جست جو</button>
-            </div>
+        <div class="col-md-8 mt-3">
+            <button class="btn btn-primary w-100" type="submit">جست جو</button>
         </div>
     </form>
 </div>

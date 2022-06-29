@@ -3,10 +3,12 @@
 
 
 {% block style_link %}
-    <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
-
-    
+    <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}"> 
 {% endblock style_link %}
+
+{% block title %}
+    <title>تایید پرداخت</title>
+{% endblock title %}
 
 {% block navbar %}
     {% include 'partials/navbar/navbar.html' %}

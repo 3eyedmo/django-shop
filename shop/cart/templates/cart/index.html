@@ -27,6 +27,10 @@
     
 {% endblock style_link %}
 
+{% block title %}
+    <title>سبد خرید</title>
+{% endblock title %}
+
 {% block navbar %}
     {% include 'partials/navbar/navbar.html' %}
 {% endblock navbar %}
@@ -38,6 +42,7 @@
 
 {% block scripts %}
 
+<script src="{% static 'assets/js/navbar.js' %}"></script>
 <script>
 
 

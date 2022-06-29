@@ -1,13 +1,9 @@
-from django.shortcuts import render
-from django.http import JsonResponse
 from django.views import generic
 from django.db.models import Q
-
 import django_filters
+
 from products.models import Category, Product
 
-def home(request):
-    return render(request, "home/index.html")
 
 
 class ProductFilterset(django_filters.FilterSet):
@@ -34,6 +30,7 @@ class ProductFilterset(django_filters.FilterSet):
         )
         return qs
     
+
 
 class HomeView(generic.ListView):
     """

@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
 {% endblock style_link %}
 
+{% block title %}
+    <title>جزییات محصول</title>
+{% endblock title %}
+
 {% block navbar %}
     {% include 'partials/navbar/navbar.html' %}
 {% endblock navbar %}
@@ -17,9 +21,27 @@
 {% endblock body %}
 
 {% block scripts %}
+<script src="{% static 'assets/js/navbar.js' %}"></script>
 <script>
 
 
+{% if user.is_authenticated %}
+
+const successProductCart = (quentity, name) => {
+    msg = 
+    `
+    <p class="alert alert-success cart_alert">${quentity} محصول ${name} اضافه شد.</p>
+    `
+    return $.parseHTML(msg)
+}
+
+const dangerAlertCart = () => {
+    msg = 
+    `
+    <p class="alert alert-danger cart_alert">تغداد این محصول در سبد خرید شما از حد مجاز بیشتر شده است.</p>
+    `
+    return $.parseHTML(msg)
+}
 
 $(document).on('click', '#add-cart-button', function (e) {
     e.preventDefault();
@@ -35,11 +57,21 @@ $(document).on('click', '#add-cart-button', function (e) {
         },
         
         success: function (json) {
-            console.log(json)
+            console.log(`${json.quentity} number of {{object.name}} was added`)
+            successElm = successProductCart(json.quentity, "{{object.name}}")
+            $("#product_alert").append(successElm)
+            $(".cart_alert").fadeOut(3000);
+
         },
-        error: function (xhr, errmsg, err) {}
+        error: function (xhr, errmsg, err) {
+            let dangerElm = dangerAlertCart()
+            $("#product_alert").append(dangerElm)
+            $(".cart_alert").fadeOut(3000);
+        }
     });
 })
+
+{% endif %}
 
 </script>
 {% endblock scripts %}
