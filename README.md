@@ -1,1 +1,3 @@
 # Django Shop
+
+## installation :
