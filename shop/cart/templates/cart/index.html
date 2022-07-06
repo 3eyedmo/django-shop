@@ -150,7 +150,13 @@ $(document).on('click', '.save-changes', function() {
                 editIcon.show()
                 quentityInputTag.remove()
                 quentitySpan.show()
-                
+                let lastWarning = $("#cart__warning__msg")
+                if (lastWarning) {
+                    lastWarning.remove()
+                } 
+                let elm = warningMessage("شما تعداد را بیشتر از سقف مجاز برای این محصول وارد کرده اید.")
+                cartContainer = $("#cart-container").append(elm)
+                $("#cart__warning__msg").fadeOut(3000);
             }
         });
     } else {

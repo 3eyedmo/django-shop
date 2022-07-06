@@ -13,7 +13,7 @@ class OrderDefalutValue:
         return serializer_field.context.get("order")
 
 
-class CartItemSerializer(serializers.ModelSerializer):
+class CartItemAddOrCreateSerializer(serializers.ModelSerializer):
     order = serializers.HiddenField(default = OrderDefalutValue())
     class Meta:
         model = CartItem
@@ -32,31 +32,42 @@ class CartItemSerializer(serializers.ModelSerializer):
             }
         }
 
-    def update(self, instance, validated_data):
+    def update(self, validated_data):
+        instance = self.instance
         quentity = validated_data.get("quentity", instance.quentity)
         instance.quentity = quentity
         instance.save()
         return instance
+    
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        quentity = data.get("quentity")
+        product = data.get("product")
+        request = self.context.get("request")
 
-    def validate_product(self, product):
-        validator = ProductValidator()
-        return validator(product.id)
+        if request.method.lower() != "post":
+            validator = QuentityValidator(
+                self.instance.product.valid_order_number
+            )
+        else:
+            validator = QuentityValidator(
+                product.valid_order_number
+            )
 
-    def validate_quentity(self, quentity):
-        validator = QuentityValidator()
-        return validator(quentity)
+        validator(quentity)
+        return data
 
     def save(self, *args, **kwargs):
-        user = self.context.get("user")
+        user = self.context.get("request").user
         product = self.validated_data.get("product")
         quentity = self.validated_data.get("quentity")
         order = self.validated_data.get("order")
-        
         if CartItem.objects.for_user(user).filter(product=product).exists():
             cart = CartItem.objects.for_user(user).get(product=product)
             sum_of_quentities = cart.quentity + quentity
-            if sum_of_quentities > 10:
-                raise serializers.ValidationError("total number bigger than 10")
+            print("sum of products :  ", sum_of_quentities)
+            if sum_of_quentities > product.valid_order_number:
+                raise serializers.ValidationError("total number is bigger than")
             cart.quentity = F('quentity') + quentity
             cart.save()
             return cart
@@ -68,3 +79,7 @@ class CartItemSerializer(serializers.ModelSerializer):
         )
         cart.save()
         return cart
+
+
+
+    

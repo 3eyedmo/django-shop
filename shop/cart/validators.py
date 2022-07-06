@@ -4,10 +4,12 @@ from rest_framework.exceptions import NotFound
 from products.models import Product
 
 class QuentityValidator:
-    max_quentity = 10
+
+    def __init__(self, product_max_order):
+        self.max_order = product_max_order
 
     def __call__(self, quentity):
-        if quentity > self.max_quentity:
+        if quentity > self.max_order:
             raise serializers.ValidationError("quentity too much")
         return quentity
 

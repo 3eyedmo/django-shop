@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="{% static 'assets/css/navbar/navbar.css' %}">
 {% endblock style_link %}
 
+{% block styles %}
+    <style>
+        .product_footer {
+            margin-bottom: 400px
+        }
+    </style>
+{% endblock styles %}
+
 {% block title %}
     <title>جزییات محصول</title>
 {% endblock title %}
@@ -23,6 +31,8 @@
 {% block scripts %}
 <script src="{% static 'assets/js/navbar.js' %}"></script>
 <script>
+
+
 
 
 {% if user.is_authenticated %}

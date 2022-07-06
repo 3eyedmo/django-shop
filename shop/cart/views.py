@@ -8,7 +8,7 @@ from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.response import Response
 
 from cart.models import CartItem
-from cart.serializers import CartItemSerializer
+from cart.serializers import CartItemAddOrCreateSerializer
 from orders.models import Order, PendingOrder
 from orders.models_status import OrderStatus
     
@@ -45,19 +45,18 @@ class IsOwner(BasePermission):
 
 
 
-class CreateCartItem(generics.CreateAPIView):
+class CartItemAddOrCreateView(generics.CreateAPIView):
     """
     This View creates Cart item.
     """
     permission_classes = (IsAuthenticated, )
-    serializer_class = CartItemSerializer
+    serializer_class = CartItemAddOrCreateSerializer
 
     def get_serializer_context(self):
-        data = super().get_serializer_context()
-        data.update({
-            "user": self.request.user,
-            "order": self.get_order()
-        })
+        data = {
+            "order": self.get_order(),
+            "request": self.request
+        }
         return data
 
     def get_order(self):
@@ -77,15 +76,20 @@ class RetrieveUpdateDestroyCartItem(
     """
     queryset = CartItem.objects.all()
     permission_classes = (IsAuthenticated, IsOwner)
-    serializer_class = CartItemSerializer
+    serializer_class = CartItemAddOrCreateSerializer
     http_method_names = ['patch', 'delete']
     lookup_field = "pk"
 
     def patch(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data, partial = True)
-        serializer.is_valid(raise_exception=True)
         instance = self.get_object()
-        cart = serializer.update(instance, serializer.validated_data)
+        serializer = self.serializer_class(
+            data=request.data,
+            partial=True,
+            instance=instance,
+            context=self.get_serializer_context()
+        )
+        serializer.is_valid(raise_exception=True)
+        cart = serializer.update(serializer.validated_data)
         return Response(
             data={
                 "quentity": cart.quentity

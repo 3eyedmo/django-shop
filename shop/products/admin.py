@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from products.models import Product, Category
+from products.models import Product, Category, ProductImage
 
 
 @admin.register(Product)
@@ -22,4 +22,13 @@ class CategoryAdmin(admin.ModelAdmin):
         'id',
         'name',
         'created',
+    ]
+
+
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "product"
     ]

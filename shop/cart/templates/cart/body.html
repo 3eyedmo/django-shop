@@ -7,6 +7,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">محصول</th>
+          <th scope="col">سقف سفارش محصول</th>
           <th scope="col">تعداد</th>
           <th scope="col">ویرایش</th>
           <th scope="col">حذف</th>
@@ -17,6 +18,7 @@
         <tr data-index="{{item.id}}" id="cart-record-{{item.id}}">
               <th scope="row">{{forloop.counter | get_persian_number}}</th>
               <td>{{item.product}}</td>
+              <td>{{item.product.valid_order_number | get_persian_number}}</td>
               <td class="quentity">
                   <span class="quentity__value" id="quentity-value-{{item.id}}">{{item.quentity | get_persian_number}}</span>
               </td>

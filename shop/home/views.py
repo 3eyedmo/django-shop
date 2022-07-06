@@ -41,13 +41,14 @@ class HomeView(generic.ListView):
     paginate_by: int = 2
     page_kwarg: str = "page"
 
+
     def get(self, request, *args, **kwargs):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         qs = super().get_queryset()
         f = ProductFilterset(self.request.GET, queryset=qs)
-        return f.qs
+        return f.qs.order_by("-created")
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
