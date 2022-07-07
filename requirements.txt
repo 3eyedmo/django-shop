@@ -7,7 +7,7 @@ charset-normalizer==2.0.12
 cryptography==37.0.2
 dacite==1.6.0
 defusedxml==0.7.1
-Django==4.0.5
+Django==4.0.6
 django-environ==0.8.1
 django-filter==21.1
 django-pytest==0.2.0
