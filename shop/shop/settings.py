@@ -1,6 +1,11 @@
 from pathlib import Path
 import os
+import environ
 
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -128,5 +133,5 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "s.m.hoseyni40304030@gmail.com"
-EMAIL_HOST_PASSWORD = "fpkh lsfj jsxi yjpi"
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="enter your credintial")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="enter your credintial")
