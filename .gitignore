@@ -2,5 +2,5 @@ env
 __pycache__
 .env
 .xlsx
-static/
-media/
+static
+media
