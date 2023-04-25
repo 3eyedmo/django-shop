@@ -79,7 +79,7 @@ class Customer(AbstractBaseUser):
         return True
 
     def is_staff_user(self):
-        "Is the user a member of staff?"
+        "Is the user a member or staff?"
         # Simplest possible answer: All admins are staff
         return self.is_staff
     

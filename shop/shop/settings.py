@@ -70,10 +70,21 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'glass_star_db',
+        'USER': 'glass_star_db',
+        'PASSWORD': 'asdaHnj@43KLm2K02',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
